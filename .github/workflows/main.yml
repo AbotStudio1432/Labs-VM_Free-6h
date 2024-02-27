@@ -1,4 +1,4 @@
-name: 4core/8gbram/40gbssd | Tailscale 
+name: Thử Nghiệm Máy Ảo Miễn Phí 6h | Vnc + Tailscale (VI/VN)
 
 on: 
   workflow_dispatch:
