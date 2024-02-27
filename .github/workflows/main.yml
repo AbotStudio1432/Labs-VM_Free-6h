@@ -1,24 +1,24 @@
-name: Thử Nghiệm Máy Ảo Miễn Phí 6h | Vnc + Tailscale (VI/VN)
+name: Miễn Phí Vm 6h | VNC + TAILSCALE (VI/VN)
 
 on: 
   workflow_dispatch:
     inputs:
       link_iso:
-        description: 'dán link iso của ae vô đây'
+        description: 'dán link iso vào đây'
         required: true
  
 jobs:
   build:
-    timeout-minutes: 1440
     runs-on: ubuntu-latest
     steps:
-      - name: chuẩn bị phần mềm
+      - name: Cài đặt Qemu và Tailscale
         run: |
           sudo apt update -y
           sudo apt install qemu-kvm cpulimit wget -y
           curl -fsSL https://tailscale.com/install.sh | sh
+          echo "Bấm vào link ở đây và đăng nhập bằng google, microsoft, icloud và tải SCALE TRÊN PC, Android, ios và đăng nhập tài khoản của bạn link vm trên tailscale ví vụ tên máy ảo bạn đã liên kết: fv-azxxx-xxx  "
           sudo tailscale up
-      - name: cài win và khởi chạy
+      - name: cài win và chạy
         run: |
           sudo chmod 666 /dev/kvm
           sudo qemu-img create -f qcow2 /mnt/a.qcow2 600G
@@ -27,8 +27,10 @@ jobs:
           while ps axg | grep -vw grep | grep -w wget > /dev/null; do sleep 1; done
           wget -O driver.iso https://fedorapeople.org/groups/virt/virtio-win/direct-downloads/archive-virtio/virtio-win-0.1.240-1/virtio-win-0.1.240.iso &>/dev/null &
           while ps axg | grep -vw grep | grep -w wget > /dev/null; do sleep 1; done
-          echo "thanh cong, ket noi voi port 5900 bang vnc"
+          echo "Ok, Connet IP On vnc with port 5900 Example: 100.xxx.xx.xxx: + 5900"
           tailscale ip -4
           sudo cpulimit -l 60 -- sudo kvm -M q35,usb=on -device usb-tablet -cpu host -smp 16 -m 16G -device virtio-balloon-pci -vga qxl -net nic,netdev=n0 -netdev user,id=n0 -boot c -device virtio-serial-pci -device virtio-rng-pci -enable-kvm -drive file=/mnt/a.qcow2 -drive file=file.iso,media=cdrom -drive file=a.img,format=raw,id=stick,if=none -device nec-usb-xhci,id=xhci -device usb-storage,bus=xhci.0,drive=stick -drive file=driver.iso,media=cdrom  -vnc :0 -bios /usr/share/ovmf/OVMF.fd -uuid e47ddb84-fb4d-46f9-b531-14bb15156336
           while ps axg | grep -vw grep | grep -w qemu-system-x86_64 > /dev/null; do sleep 1; done
           while ps axg | grep -vw grep | grep -w kvm > /dev/null; do sleep 1; done
+          while true |# start an infinite loop do | echo "day la ghcs 24/7" |# print "Hello" sleep 60 |# wait for 1 second done # end the loop
+          sudo su | while true | start an infinite loop do sudo sync; echo 3 > /proc/sys/vm/drop_caches sleep 60 | # wait for 1 second done # end the loop
