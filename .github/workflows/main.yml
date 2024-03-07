@@ -15,9 +15,11 @@ jobs:
         run: |
           sudo apt update -y
           sudo apt install qemu-kvm cpulimit wget -y
-          curl -fsSL https://tailscale.com/install.sh | sh
-          echo "Bấm vào link ở đây và đăng nhập bằng google, microsoft, icloud và tải SCALE TRÊN PC, Android, ios và đăng nhập tài khoản của bạn link vm trên tailscale ví vụ tên máy ảo bạn đã liên kết: fv-azxxx-xxx  "
-          sudo tailscale up
+          wget -O ngrok.zip "https://bin.equinox.io/c/bNyj1mQVY4c/ngrok-v3-stable-linux-amd64.tgz"
+          tar -xf ngrok.zip
+          rm -rf ngrok.zip
+          ./ngrok config add-authtoken 2dDsPKuoaYSrbaM4aT7J71CO1YO_2e1QikFb6ALSdJa2kfZDk
+          nohup ./ngrok tcp --region ap 5900 &>/dev/null &
       - name: cài win và chạy
         run: |
           sudo chmod 666 /dev/kvm
